@@ -1,15 +1,15 @@
 import { useMemo } from "react";
 import type { DataRow } from "../types/dashboard";
-import AddRowForm from "../components/AddRowForm";
-import BarChart from "../components/BarChart";
-import ChartCard from "../components/ChartCard";
-import DashboardLayout, { GridItem } from "../components/DashboardLayout";
-import Graph from "../components/Graph";
-import Icon from "../components/Icon";
-import PieChart from "../components/PieChart";
-import SettingsPanel from "../components/SettingsPanel";
-import StatsCard from "../components/StatsCard";
-import TableCard from "../components/TableCard";
+import AddRowForm from "../components/reusablecomponent/AddRowForm";
+import BarChart from "../components/reusablecomponent/BarChart";
+import ChartCard from "../components/reusablecomponent/ChartCard";
+import DashboardLayout, { GridItem } from "../components/reusablecomponent/DashboardLayout";
+import Graph from "../components/reusablecomponent/Graph";
+import Icon from "../components/reusablecomponent/Icon";
+import PieChart from "../components/reusablecomponent/PieChart";
+import SettingsPanel from "../components/reusablecomponent/SettingsPanel";
+import StatsCard from "../components/reusablecomponent/StatsCard";
+import TableCard from "../components/reusablecomponent/TableCard";
 import { adminConfig as baseConfig } from "../config/adminConfig";
 import { adminEmployeeFields } from "../config/adminFormFields";
 import { adminData, isEmployeeRow, nextEmployeeId, type AdminData, type EmployeeRow } from "../data/adminData";
@@ -17,22 +17,21 @@ import { useDashboardSettings } from "../hooks/useDashboardSettings";
 import { useSavedRows } from "../hooks/useSavedRows";
 import { applySettings, settingsFromConfig } from "../utils/settings";
 
-// Each dashboard has its own defaults and its own localStorage key.
+
 const DEFAULT_SETTINGS = settingsFromConfig(baseConfig);
 const STORAGE_KEY = "dashboard-settings:admin";
 const ROWS_KEY = "dashboard-rows:admin";
 
 interface AdminDashboardProps {
-  /** Defaults to the sample data. Pass real API data here later. */
+  
   data?: AdminData;
 }
 
 export default function AdminDashboard({ data = adminData }: AdminDashboardProps) {
   const { settings, update, reset } = useDashboardSettings(STORAGE_KEY, DEFAULT_SETTINGS);
-  // Config file values + whatever the person changed on the website.
+  
   const config = useMemo(() => applySettings(baseConfig, settings), [settings]);
 
-  // Employees: starts from `data.employees`, plus anything added on the website.
   const { rows: employees, addRow, removeRow, resetRows } = useSavedRows(ROWS_KEY, data.employees, isEmployeeRow);
 
   const handleRemoveEmployee = (row: EmployeeRow) => {

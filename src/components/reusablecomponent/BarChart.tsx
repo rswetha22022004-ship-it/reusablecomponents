@@ -1,22 +1,21 @@
 import { useMemo } from "react";
 import {
+  Bar,
+  BarChart as RechartsBarChart,
   CartesianGrid,
   Legend,
-  Line,
-  LineChart as RechartsLineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
-import type { DataRow, LineChartConfig } from "../types/dashboard";
+import type { BarChartConfig, DataRow } from "../../types/dashboard";
 
-export interface GraphProps extends LineChartConfig {
+export interface BarChartProps extends BarChartConfig {
   data: readonly DataRow[];
 }
 
-/** Line graph. Pass several entries in `series` to draw several lines. */
-export default function Graph({
+export default function BarChart({
   data,
   height,
   width = "100%",
@@ -28,12 +27,12 @@ export default function Graph({
   showTooltip = true,
   gridColor = "#e5e7eb",
   axisColor = "#6b7280",
-  strokeWidth = 2,
-  showDots = true,
-  curve = "monotone",
+  barRadius = 4,
+  barSize,
+  stacked = false,
   tooltipStyle,
   emptyMessage = "No data to display.",
-}: GraphProps) {
+}: BarChartProps) {
   const chartData = useMemo(() => [...data], [data]);
 
   if (chartData.length === 0) {
@@ -46,8 +45,8 @@ export default function Graph({
 
   return (
     <ResponsiveContainer width={width} height={height}>
-      <RechartsLineChart data={chartData} margin={{ top: 8, right: 12, bottom: 0, left: 0 }}>
-        {showGrid && <CartesianGrid stroke={gridColor} strokeDasharray="3 3" />}
+      <RechartsBarChart data={chartData} margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
+        {showGrid && <CartesianGrid stroke={gridColor} strokeDasharray="3 3" vertical={false} />}
         <XAxis
           dataKey={xAxisKey}
           tick={{ fill: axisColor, fontSize: 12 }}
@@ -55,24 +54,20 @@ export default function Graph({
           tickLine={false}
         />
         <YAxis tick={{ fill: axisColor, fontSize: 12 }} axisLine={false} tickLine={false} />
-        {showTooltip && <Tooltip contentStyle={tooltipStyle} />}
+        {showTooltip && <Tooltip contentStyle={tooltipStyle} cursor={{ fill: gridColor, opacity: 0.3 }} />}
         {showLegend && <Legend wrapperStyle={{ color: axisColor, fontSize: 12 }} />}
-        {series.map((s, index) => {
-          const color = s.color ?? colors[index % colors.length];
-          return (
-            <Line
-              key={s.dataKey}
-              type={curve}
-              dataKey={s.dataKey}
-              name={s.name ?? s.dataKey}
-              stroke={color}
-              strokeWidth={strokeWidth}
-              dot={showDots ? { r: 3, fill: color, strokeWidth: 0 } : false}
-              activeDot={{ r: 5 }}
-            />
-          );
-        })}
-      </RechartsLineChart>
+        {series.map((s, index) => (
+          <Bar
+            key={s.dataKey}
+            dataKey={s.dataKey}
+            name={s.name ?? s.dataKey}
+            fill={s.color ?? colors[index % colors.length]}
+            stackId={stacked ? "stack" : undefined}
+            barSize={barSize}
+            radius={stacked ? 0 : [barRadius, barRadius, 0, 0]}
+          />
+        ))}
+      </RechartsBarChart>
     </ResponsiveContainer>
   );
 }

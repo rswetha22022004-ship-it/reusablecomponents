@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import type { CardStyle } from "../types/dashboard";
+import type { CardStyle } from "../../types/dashboard";
 
 export interface CardProps extends CardStyle {
   title?: string;

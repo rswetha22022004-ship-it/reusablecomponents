@@ -1,11 +1,7 @@
 import type { ReactNode } from "react";
-import type { GridCount, LayoutConfig, ResponsiveValue } from "../types/dashboard";
+import type { GridCount, LayoutConfig, ResponsiveValue } from "../../types/dashboard";
 
-/**
- * Tailwind only generates classes it can find as complete strings in the
- * source, so "grid-cols-" + n would NOT work. These lookup tables spell every
- * class out in full.
- */
+
 const COLS = {
   base: { 1: "grid-cols-1", 2: "grid-cols-2", 3: "grid-cols-3", 4: "grid-cols-4", 5: "grid-cols-5", 6: "grid-cols-6" },
   md: { 1: "md:grid-cols-1", 2: "md:grid-cols-2", 3: "md:grid-cols-3", 4: "md:grid-cols-4", 5: "md:grid-cols-5", 6: "md:grid-cols-6" },
@@ -29,7 +25,6 @@ function toClasses(
   return classes.join(" ");
 }
 
-/* ------------------------------------------------------------------ */
 
 export interface DashboardLayoutProps {
   title: string;
@@ -38,7 +33,6 @@ export interface DashboardLayoutProps {
   children: ReactNode;
 }
 
-/** Page shell: background, width, header and a responsive grid for the children. */
 export default function DashboardLayout({ title, subtitle, layout, children }: DashboardLayoutProps) {
   return (
     <div
@@ -68,14 +62,12 @@ export default function DashboardLayout({ title, subtitle, layout, children }: D
   );
 }
 
-/* ------------------------------------------------------------------ */
 
 export interface GridItemProps {
   span: ResponsiveValue<GridCount>;
   children: ReactNode;
 }
 
-/** Wrap any widget in this to control how many grid columns it spans. */
 export function GridItem({ span, children }: GridItemProps) {
   return <div className={`min-w-0 ${toClasses(span, SPANS)}`}>{children}</div>;
 }

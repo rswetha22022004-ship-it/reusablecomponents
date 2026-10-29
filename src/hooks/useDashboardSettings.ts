@@ -7,15 +7,11 @@ function load(storageKey: string, defaults: DashboardSettings): DashboardSetting
     const saved = localStorage.getItem(storageKey);
     return saved ? sanitizeSettings(JSON.parse(saved), defaults) : defaults;
   } catch {
-    return defaults; // storage blocked or corrupt JSON: use the config values
+    return defaults; 
   }
 }
 
-/**
- * Live, saved settings for ONE dashboard.
- * Each dashboard passes its own `storageKey`, so Admin and User keep
- * separate state and separate saved values.
- */
+
 export function useDashboardSettings(storageKey: string, defaults: DashboardSettings) {
   const [settings, setSettings] = useState<DashboardSettings>(() => load(storageKey, defaults));
 
@@ -23,7 +19,7 @@ export function useDashboardSettings(storageKey: string, defaults: DashboardSett
     try {
       localStorage.setItem(storageKey, JSON.stringify(settings));
     } catch {
-      /* ignore: settings still work for this session */
+      
     }
   }, [storageKey, settings]);
 

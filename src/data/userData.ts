@@ -19,7 +19,6 @@ export interface UserData {
   tasks: readonly TaskRow[];
 }
 
-/** Sample data for the signed-in user. Replace with an API response later. */
 export const userData: UserData = {
   stats: [
     { id: "done", title: "Tasks done this week", value: 18, icon: "tasks", trend: { value: 12, label: "vs last week" } },
@@ -58,7 +57,6 @@ export const userData: UserData = {
   ],
 };
 
-/** Runtime check used when reading saved rows back from localStorage. */
 export function isTaskRow(value: unknown): value is TaskRow {
   if (typeof value !== "object" || value === null) return false;
   const r = value as Record<string, unknown>;
@@ -71,8 +69,6 @@ export function isTaskRow(value: unknown): value is TaskRow {
     (TASK_STATUSES as readonly string[]).includes(r.status)
   );
 }
-
-/** T-108, T-109 ... one higher than the biggest existing number. */
 export function nextTaskId(rows: readonly TaskRow[]): string {
   const highest = rows.reduce((max, row) => {
     const match = /^T-(\d+)$/.exec(row.id);

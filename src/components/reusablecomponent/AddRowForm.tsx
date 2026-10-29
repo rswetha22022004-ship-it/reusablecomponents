@@ -1,11 +1,9 @@
 import { useId, useState, type FormEvent } from "react";
-import type { DataRow, FormField } from "../types/dashboard";
+import type { DataRow, FormField } from "../../types/dashboard";
 
 export interface AddRowFormProps<T extends object> {
   fields: readonly FormField<T>[];
-  /** Called with the cleaned values: numbers are real numbers, text is trimmed. */
   onSubmit: (values: DataRow) => void;
-  /** If given, shows a "Restore sample data" button. */
   onReset?: () => void;
   buttonLabel?: string;
   labelColor?: string;
@@ -24,7 +22,6 @@ function emptyValues<T extends object>(fields: readonly FormField<T>[]): Record<
   return values;
 }
 
-/** Generic "add a row" form. It only knows about `fields`, never about employees. */
 export default function AddRowForm<T extends object>({
   fields,
   onSubmit,

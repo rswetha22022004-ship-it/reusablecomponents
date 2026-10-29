@@ -2,7 +2,6 @@ import type { DashboardConfig, DashboardSettings } from "../types/dashboard";
 
 const HEX = /^#[0-9a-fA-F]{6}$/;
 
-/** Starting settings, read from a dashboard's config file. */
 export function settingsFromConfig<T extends object>(config: DashboardConfig<T>): DashboardSettings {
   return {
     barHeight: config.bar.chart.height,
@@ -16,10 +15,7 @@ export function settingsFromConfig<T extends object>(config: DashboardConfig<T>)
   };
 }
 
-/**
- * Returns a NEW config with the settings applied. The original (frozen)
- * config is never touched, so the other dashboard can never be affected.
- */
+
 export function applySettings<T extends object>(
   config: DashboardConfig<T>,
   s: DashboardSettings,
@@ -48,7 +44,6 @@ function cleanColors(value: unknown, fallback: string[]): string[] {
   return fallback.map((fb, i) => cleanColor(Array.isArray(value) ? value[i] : undefined, fb));
 }
 
-/** Makes sure whatever came out of localStorage is safe to use. */
 export function sanitizeSettings(raw: unknown, defaults: DashboardSettings): DashboardSettings {
   const r = (typeof raw === "object" && raw !== null ? raw : {}) as Record<string, unknown>;
   return {

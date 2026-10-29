@@ -1,15 +1,15 @@
 import { useMemo } from "react";
 import type { DataRow } from "../types/dashboard";
-import AddRowForm from "../components/AddRowForm";
-import BarChart from "../components/BarChart";
-import ChartCard from "../components/ChartCard";
-import DashboardLayout, { GridItem } from "../components/DashboardLayout";
-import Graph from "../components/Graph";
-import Icon from "../components/Icon";
-import PieChart from "../components/PieChart";
-import SettingsPanel from "../components/SettingsPanel";
-import StatsCard from "../components/StatsCard";
-import TableCard from "../components/TableCard";
+import AddRowForm from "../components/reusablecomponent/AddRowForm";
+import BarChart from "../components/reusablecomponent/BarChart";
+import ChartCard from "../components/reusablecomponent/ChartCard";
+import DashboardLayout, { GridItem } from "../components/reusablecomponent/DashboardLayout";
+import Graph from "../components/reusablecomponent/Graph";
+import Icon from "../components/reusablecomponent/Icon";
+import PieChart from "../components/reusablecomponent/PieChart";
+import SettingsPanel from "../components/reusablecomponent/SettingsPanel";
+import StatsCard from "../components/reusablecomponent/StatsCard";
+import TableCard from "../components/reusablecomponent/TableCard";
 import { userConfig as baseConfig } from "../config/userConfig";
 import { userTaskFields } from "../config/userFormFields";
 import { isTaskRow, nextTaskId, userData, type TaskRow, type UserData } from "../data/userData";
@@ -17,22 +17,20 @@ import { useDashboardSettings } from "../hooks/useDashboardSettings";
 import { useSavedRows } from "../hooks/useSavedRows";
 import { applySettings, settingsFromConfig } from "../utils/settings";
 
-// Each dashboard has its own defaults and its own localStorage key.
+
 const DEFAULT_SETTINGS = settingsFromConfig(baseConfig);
 const STORAGE_KEY = "dashboard-settings:user";
 const ROWS_KEY = "dashboard-rows:user";
 
 interface UserDashboardProps {
-  /** Defaults to the sample data. Pass real API data here later. */
+  /** enga Pass real API data later. */
   data?: UserData;
 }
 
 export default function UserDashboard({ data = userData }: UserDashboardProps) {
   const { settings, update, reset } = useDashboardSettings(STORAGE_KEY, DEFAULT_SETTINGS);
-  // Config file values + whatever the person changed on the website.
   const config = useMemo(() => applySettings(baseConfig, settings), [settings]);
 
-  // Tasks: start from `data.tasks`, plus anything added or removed on the website.
   const { rows: tasks, addRow, removeRow, resetRows } = useSavedRows(ROWS_KEY, data.tasks, isTaskRow);
 
   const handleAddTask = (values: DataRow) => {
@@ -70,7 +68,7 @@ export default function UserDashboard({ data = userData }: UserDashboardProps) {
         </GridItem>
       ))}
 
-      {/* The User page orders its widgets differently: line chart first. */}
+  
       <GridItem span={config.line.span}>
         <ChartCard
           title={config.line.title}

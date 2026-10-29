@@ -20,10 +20,7 @@ export interface AdminData {
   employees: readonly EmployeeRow[];
 }
 
-/**
- * Plain sample data. Later you can replace this object with the result of an
- * API call (same shape) and nothing else needs to change.
- */
+
 export const adminData: AdminData = {
   stats: [
     { id: "users", title: "Total users", value: "12,480", icon: "users", trend: { value: 8.2, label: "vs last month" } },

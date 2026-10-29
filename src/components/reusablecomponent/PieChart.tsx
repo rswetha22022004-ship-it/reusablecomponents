@@ -1,12 +1,14 @@
 import { useMemo } from "react";
 import {
   Legend,
-  Pie,
+  Pie,       
   PieChart as RechartsPieChart,
   ResponsiveContainer,
   Tooltip,
 } from "recharts";
-import type { DataRow, PieChartConfig } from "../types/dashboard";
+
+// rechart la erunthu import agirukku
+import type { DataRow, PieChartConfig } from "../../types/dashboard";
 
 export interface PieChartProps extends PieChartConfig {
   data: readonly DataRow[];

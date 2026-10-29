@@ -1,4 +1,4 @@
-import type { IconName } from "../types/dashboard";
+import type { IconName } from "../../types/dashboard";
 
 const PATHS: Record<IconName, string> = {
   users:

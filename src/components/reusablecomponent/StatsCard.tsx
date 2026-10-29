@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { StatsCardSize, StatsCardStyle, Trend } from "../types/dashboard";
+import type { StatsCardSize, StatsCardStyle, Trend } from "../../types/dashboard";
 
 export interface StatsCardProps extends StatsCardStyle {
   title: string;
@@ -8,7 +8,6 @@ export interface StatsCardProps extends StatsCardStyle {
   trend?: Trend;
 }
 
-/** Size presets: Tailwind classes are written out in full so Tailwind can see them. */
 const SIZE_CLASSES: Record<StatsCardSize, { box: string; value: string; icon: string }> = {
   sm: { box: "p-3 gap-1", value: "text-xl", icon: "h-8 w-8" },
   md: { box: "p-4 gap-1.5", value: "text-2xl", icon: "h-10 w-10" },

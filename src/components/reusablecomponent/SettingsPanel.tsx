@@ -1,12 +1,11 @@
 import { useState } from "react";
 import Card from "./Card";
-import type { CardStyle, DashboardSettings } from "../types/dashboard";
+import type { CardStyle, DashboardSettings } from "../../types/dashboard";
 
 export interface SettingsPanelProps {
   settings: DashboardSettings;
   onChange: <K extends keyof DashboardSettings>(key: K, value: DashboardSettings[K]) => void;
   onReset: () => void;
-  /** Same card style the dashboard uses, so the panel matches its theme. */
   card?: CardStyle;
   labelColor?: string;
   accentColor?: string;

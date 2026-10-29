@@ -2,13 +2,7 @@ import type { DashboardConfig } from "../types/dashboard";
 import type { TaskRow } from "../data/userData";
 import { deepFreeze } from "../utils/deepFreeze";
 
-/**
- * User dashboard configuration.
- *
- * Completely separate from adminConfig.ts: different object, different colours,
- * different heights, different grid. Editing this file can never change the
- * Admin dashboard, and the reverse is also true.
- */
+
 export const userConfig: DashboardConfig<TaskRow> = deepFreeze({
   title: "My dashboard",
   subtitle: "Your tasks and time this week",

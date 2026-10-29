@@ -1,12 +1,10 @@
 import { useState } from "react";
-import type { ColumnDef, TableStyle } from "../types/dashboard";
+import type { ColumnDef, TableStyle } from "../../types/dashboard";
 
 export interface DataTableProps<T extends object> extends TableStyle {
   columns: readonly ColumnDef<T>[];
   rows: readonly T[];
-  /** Returns a stable unique key for a row (e.g. its id). */
   getRowKey: (row: T, index: number) => string | number;
-  /** If given, every row gets a Remove button that calls this. */
   onRemoveRow?: (row: T, index: number) => void;
 }
 
@@ -16,10 +14,7 @@ const ALIGN_CLASS = {
   right: "text-right",
 } as const;
 
-/**
- * Generic table. `T` is the row type, so columns are checked against your
- * real data: `key` must be a property of the row.
- */
+
 export default function DataTable<T extends object>({
   columns,
   rows,

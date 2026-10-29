@@ -4,10 +4,7 @@ import UserDashboard from "./pages/UserDashboard";
 
 type View = "admin" | "user";
 
-/**
- * Tiny view switcher so you can compare both dashboards.
- * In a real app you would use a router (e.g. React Router) instead.
- */
+
 export default function App() {
   const [view, setView] = useState<View>("admin");
 

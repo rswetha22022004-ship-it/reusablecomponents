@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-/* Intentionally minimal: no dashboard-specific selectors live here.
-   All Admin / User styling is passed through props. */
 body {
   margin: 0;
 }

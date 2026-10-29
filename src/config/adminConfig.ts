@@ -2,16 +2,7 @@ import type { DashboardConfig } from "../types/dashboard";
 import type { EmployeeRow } from "../data/adminData";
 import { deepFreeze } from "../utils/deepFreeze";
 
-/**
- * Admin dashboard configuration.
- *
- * - Lives only in this file: the User dashboard never imports it.
- * - The type annotation makes TypeScript check every field.
- * - `deepFreeze` makes the object read-only at runtime, so nothing can mutate it.
- *
- * Try it: change `height: 320` below to `height: 450`. Only the Admin bar chart
- * grows, because only the Admin page reads this object.
- */
+
 export const adminConfig: DashboardConfig<EmployeeRow> = deepFreeze({
   title: "Admin dashboard",
   subtitle: "Company-wide performance at a glance",

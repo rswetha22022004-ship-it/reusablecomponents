@@ -1,7 +1,6 @@
 import { adminConfig } from "../src/config/adminConfig";
 import { userConfig } from "../src/config/userConfig";
 
-/** Collect every object/array reference inside a value. */
 function collect(value: unknown, seen = new Set<object>()): Set<object> {
   if (value !== null && typeof value === "object" && !seen.has(value)) {
     seen.add(value);
@@ -27,7 +26,9 @@ try {
 console.log("Admin bar height after attempted mutation:", adminConfig.bar.chart.height);
 console.log("User  bar height after attempted mutation:", userConfig.bar.chart.height);
 
-if (shared.length > 0) process.exit(1);
+if (shared.length > 0) {
+  throw new Error(`Expected independent configs, found ${shared.length} shared object references.`);
+}
 
 /* ---- runtime settings: applying Admin settings must not touch any config ---- */
 import { applySettings, settingsFromConfig } from "../src/utils/settings";
@@ -40,5 +41,5 @@ console.log("Admin base config still:", adminConfig.bar.chart.height);
 console.log("User  config still:", userConfig.bar.chart.height);
 
 if (adminConfig.bar.chart.height !== 320 || userConfig.bar.chart.height !== 220 || changedAdmin.bar.chart.height !== 500) {
-  process.exit(1);
+  throw new Error("Applying Admin settings changed a config unexpectedly.");
 }
